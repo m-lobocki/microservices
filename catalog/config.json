@@ -1,0 +1,5 @@
+{
+  "gateway": "http://localhost:3000",
+  "host": "http://localhost",
+  "prefix": "/catalog"
+}
