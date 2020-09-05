@@ -1,5 +1,5 @@
 {
-  "gateway": "http://localhost:3000",
+  "gateway": "http://localhost:3000/registry",
   "host": "http://localhost",
   "prefix": "/catalog"
 }
