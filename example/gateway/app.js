@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const registry = require('../lib/registry');
+const registry = require('../../lib/registry');
 const indexRouter = require('./routes/index');
 const app = express();
 

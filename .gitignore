@@ -1,6 +1,2 @@
 # Project exclude paths
-/cart/node_modules/
-/catalog/node_modules/
-/gateway/node_modules/
-/lib/node_modules/
-/order/node_modules/
+node_modules
