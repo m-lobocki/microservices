@@ -1,6 +1,6 @@
 const config = require('./config.json');
 const routing = require('./routing');
-const microservice = require('../../lib/microservice');
+const Microservice = require('../../lib/microservice');
 
-const app = microservice(__dirname, config, routing);
-module.exports = app;
+const microservice = new Microservice(__dirname, config, routing);
+module.exports = microservice.app;

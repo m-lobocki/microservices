@@ -1,40 +1,60 @@
 # Description
-A simple microservice framework written in JavaScript designed for node.js apps.
+A simple microservice framework written in JavaScript designed for node.js apps. Since the framework is based on
+express.js, each application must contain `app.js` which is the entry point.
+
+The architecture is based on the microservice with a gateway pattern. Learn more at
+https://microservices.io/patterns/apigateway.html
+
+# Constructor
+Both `Microservice` and `Gateway` classes are a facade that builds an app on top of the express.js and require the same
+set of arguments. The config however has different options.
+
+Create an instance of a facade (either [Microservice](#Microservice) or [Gateway](#Gateway))
+in the `app.js` file and export it's `app` property.
+
+Constructor accepts the following arguments:
+* __dirname - current working directory required by express.js to serve static files
+* config - custom config object, check [Microservice](#Microservice) or [Gateway](#Gateway) sections for details
+* routing - in form of an array of routes, where a route is  an endpoint, and `express.Router`. Example routing
+configuration:
+    ````
+    module.exports = [
+      ['/', indexRouter],
+      ['/help', helpRouter]
+    ];
+    ````
+
+You can still access the original express app through the `app` property included in the facade class.
 
 # Microservice
-Import `microservice.js`:
+Creating microservice facade:
 
-`const microservice = require('lib/microservice');`
-
-It is a function that builds a microservice on top of an Express.js application. Pass `__dirname`, custom `config` and
-`routing`. Routing is made in form of an array of routes, where a route is  an endpoint, and `express.Router`.
-
-Example of routing:
 ````
-module.exports = [
-  ['/', indexRouter],
-  ['/help', helpRouter]
-];
+const microservice = new Microservice(__dirname, config, routing);
+module.exports = microservice.app;
 ````
 
-`const app = microservice(__dirname, config, routing);`
-
-## Config
-Create a json file, e.g. `config.json` and pass it to a microservice.
-### Options
+### Config
 ##### Required
-* gateway
+* gateway - full gateway URL
 * host
 * prefix
 ##### Optional
 * timeout
 
 # Gateway
-The library is based on the microservice with a gateway pattern. Learn more at https://microservices.io/patterns/apigateway.html
+Creating gateway facade:
 
-Import `microservice.js`:
+````
+const gateway = new Gateway(__dirname, config, routing);
+module.exports = gateway.app;
+````
 
-`const gateway = require('lib/gateway');`
+### Config
+##### Required
+##### Optional
+* healthCheckFrequency - frequency (milliseconds) of sending health checks, default 60000
+* healthCheckTimeout - time (milliseconds) to wait before assuming service is broken, default 10000
 
 # Running
 To run an instance of a microservice open the terminal and set desired port (example for Windows: `set PORT=8081`), then run `npm run start`
